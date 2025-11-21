@@ -114,6 +114,21 @@ export function initializeDatabase() {
       status TEXT DEFAULT 'PACKING',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    -- Orders table
+    CREATE TABLE IF NOT EXISTS orders (
+      id TEXT PRIMARY KEY,
+      item_id TEXT NOT NULL,
+      item_name TEXT NOT NULL,
+      quantity INTEGER NOT NULL,
+      unit_cost DECIMAL(10, 2),
+      total_cost DECIMAL(12, 2),
+      status TEXT DEFAULT 'ORDERED',
+      ordered_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+      delivery_date DATETIME,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (item_id) REFERENCES items(id)
+    );
   `
 
   // Split and execute each statement
@@ -252,4 +267,36 @@ function seedDummyData(database: Database.Database) {
   insertPackage.run("PKG-001", "ORD-001", "PL-001", "BOX", "PACKING")
   insertPackage.run("PKG-002", "ORD-002", "PL-002", "BOX", "LABELED")
   insertPackage.run("PKG-003", "ORD-003", "PL-003", "CRATE", "VERIFIED")
+
+  // Insert sample orders
+  const insertOrder = database.prepare(`
+    INSERT INTO orders (id, item_id, item_name, quantity, unit_cost, total_cost, status, ordered_date, delivery_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `)
+
+  const now = new Date()
+  const deliveryDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+  insertOrder.run(
+    "ORD-BUY-001",
+    "ITEM-001",
+    "Laptops",
+    10,
+    1200.0,
+    12000.0,
+    "DELIVERED",
+    now.toISOString(),
+    deliveryDate.toISOString(),
+  )
+  insertOrder.run(
+    "ORD-BUY-002",
+    "ITEM-005",
+    "USB Cables",
+    100,
+    12.0,
+    1200.0,
+    "IN_TRANSIT",
+    now.toISOString(),
+    deliveryDate.toISOString(),
+  )
 }

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { InventoryList } from "@/components/inventory-list"
 import { RequisitionsList } from "@/components/requisitions-list"
 import { PickListsDisplay } from "@/components/pick-lists-display"
+import { OrdersList } from "@/components/orders-list"
 
 interface InventoryItem {
   id: string
@@ -119,9 +120,10 @@ export default function Dashboard() {
 
       <main className="flex-1 p-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="inventory">Inventory</TabsTrigger>
             <TabsTrigger value="requisitions">Requisitions</TabsTrigger>
+            <TabsTrigger value="orders">Orders</TabsTrigger>
             <TabsTrigger value="pick-lists">Pick Lists</TabsTrigger>
           </TabsList>
 
@@ -131,6 +133,10 @@ export default function Dashboard() {
 
           <TabsContent value="requisitions" className="space-y-6">
             <RequisitionsList items={requisitions} onStatusChange={handleStatusChange} />
+          </TabsContent>
+
+          <TabsContent value="orders" className="space-y-6">
+            <OrdersList />
           </TabsContent>
 
           <TabsContent value="pick-lists" className="space-y-6">
