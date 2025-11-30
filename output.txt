@@ -1,0 +1,1900 @@
+]633;E;echo "=== DIRECTORY TREE ===";cae9995a-2718-4e5a-a7e8-9fe3ee1d12e4]633;C=== DIRECTORY TREE ===
+app
+├── api
+│   ├── inventory
+│   │   ├── [id]
+│   │   │   └── route.ts
+│   │   └── route.ts
+│   ├── items
+│   │   └── route.ts
+│   ├── orders
+│   │   ├── [id]
+│   │   │   └── route.ts
+│   │   └── route.ts
+│   ├── packages
+│   │   ├── [id]
+│   │   │   └── route.ts
+│   │   └── route.ts
+│   ├── pick-lists
+│   │   ├── [id]
+│   │   │   └── route.ts
+│   │   └── route.ts
+│   ├── purchase-orders
+│   │   └── route.ts
+│   ├── requisitions
+│   │   ├── [id]
+│   │   │   └── route.ts
+│   │   └── route.ts
+│   └── warehouses
+│       └── route.ts
+├── globals.css
+├── layout.tsx
+└── page.tsx
+lib
+├── api-client.ts
+├── api.ts
+├── db.ts
+├── java-api.ts
+└── utils.ts
+
+16 directories, 21 files
+
+=== FILE CONTENTS ===
+
+--- app/globals.css ---
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: 'Geist', 'Geist Fallback';
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+--- app/page.tsx ---
+"use client"
+
+import { useState, useEffect } from "react"
+import { Package, RefreshCw, Server, AlertCircle } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { InventoryList } from "@/components/inventory-list"
+import { RequisitionsList } from "@/components/requisitions-list"
+import { PickListsDisplay } from "@/components/pick-lists-display"
+import { OrdersList } from "@/components/orders-list"
+import { WarehouseOperations } from "@/components/warehouse-operations"
+import * as javaApi from "@/lib/java-api"
+
+interface InventoryItem {
+  recordId: string
+  itemId: string
+  itemName?: string
+  quantityOnHand: number
+  warehouseId?: string
+  locationId?: string
+}
+
+interface Requisition {
+  requisitionId: string
+  itemId: string
+  itemName?: string
+  quantity: number
+  status: "PENDING" | "APPROVED" | "REJECTED"
+  createdBy?: string
+  justification?: string
+}
+
+interface PickList {
+  pickListId: string
+  orderId: string
+  status: string
+  items?: any[]
+}
+
+interface Warehouse {
+  warehouseId: string
+  name: string
+  totalCapacity: number
+  usedCapacity: number
+}
+
+export default function Dashboard() {
+  const [activeTab, setActiveTab] = useState("inventory")
+  const [inventory, setInventory] = useState<InventoryItem[]>([])
+  const [requisitions, setRequisitions] = useState<Requisition[]>([])
+  const [pickLists, setPickLists] = useState<PickList[]>([])
+  const [warehouse, setWarehouse] = useState<Warehouse | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [backendStatus, setBackendStatus] = useState<"connected" | "disconnected" | "checking">("checking")
+  const [error, setError] = useState<string | null>(null)
+
+  const checkBackendStatus = async () => {
+    setBackendStatus("checking")
+    const result = await javaApi.getWarehouseCapacity()
+    if (result.error) {
+      setBackendStatus("disconnected")
+      return false
+    }
+    setBackendStatus("connected")
+    setWarehouse(result.data || null)
+    return true
+  }
+
+  const fetchData = async () => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const isConnected = await checkBackendStatus()
+
+      if (!isConnected) {
+        setError("Cannot connect to Java backend. Please ensure the server is running on port 4567.")
+        setLoading(false)
+        return
+      }
+
+      // Fetch pending requisitions from Java backend
+      const reqResult = await javaApi.getPendingRequisitions()
+      if (reqResult.data) {
+        setRequisitions(reqResult.data)
+      }
+
+      // Fetch stock levels for known items (ITEM-001, ITEM-002)
+      const stockItems: InventoryItem[] = []
+      for (const itemId of ["ITEM-001", "ITEM-002"]) {
+        const stockResult = await javaApi.getStockLevels(itemId)
+        if (stockResult.data) {
+          stockItems.push(stockResult.data)
+        }
+      }
+      setInventory(stockItems)
+
+      console.log("[v0] Data fetched from Java backend successfully")
+    } catch (err) {
+      console.error("[v0] Failed to fetch data:", err)
+      setError("Failed to fetch data from Java backend")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    try {
+      let result
+      if (newStatus === "APPROVED") {
+        result = await javaApi.approveRequisition(id)
+      } else if (newStatus === "REJECTED") {
+        result = await javaApi.rejectRequisition(id)
+      }
+
+      if (result?.data) {
+        setRequisitions(requisitions.map((r) => (r.requisitionId === id ? { ...r, status: newStatus as any } : r)))
+        console.log("[v0] Requisition status updated via Java backend:", id, newStatus)
+      } else if (result?.error) {
+        console.error("[v0] Failed to update requisition:", result.error)
+      }
+    } catch (err) {
+      console.error("[v0] Failed to update requisition:", err)
+    }
+  }
+
+  const transformedInventory = inventory.map((item) => ({
+    id: item.recordId,
+    item_id: item.itemId,
+    item_name: item.itemName || item.itemId,
+    sku: item.itemId,
+    unit_cost: 0,
+    reorder_point: 10,
+    warehouse_id: item.warehouseId || "WH-1",
+    location_id: item.locationId || "A1-01",
+    quantity_on_hand: item.quantityOnHand,
+    last_updated: new Date().toISOString(),
+  }))
+
+  const transformedRequisitions = requisitions.map((req) => ({
+    id: req.requisitionId,
+    item_id: req.itemId,
+    item_name: req.itemName || req.itemId,
+    quantity: req.quantity,
+    status: req.status,
+    created_by: req.createdBy || "System",
+    justification: req.justification || "Stock replenishment",
+    created_at: new Date().toISOString(),
+  }))
+
+  return (
+    <div className="flex min-h-screen flex-col bg-muted/10">
+      <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background px-6 shadow-sm">
+        <Package className="h-6 w-6 text-primary" />
+        <h1 className="text-lg font-semibold">Warehouse Management System</h1>
+
+        <div className="ml-4 flex items-center gap-2">
+          <Server className="h-4 w-4" />
+          <Badge
+            variant={
+              backendStatus === "connected" ? "default" : backendStatus === "disconnected" ? "destructive" : "secondary"
+            }
+          >
+            {backendStatus === "connected"
+              ? "Java Backend Connected"
+              : backendStatus === "disconnected"
+                ? "Backend Disconnected"
+                : "Checking..."}
+          </Badge>
+        </div>
+
+        <div className="ml-auto flex items-center gap-4">
+          <Button variant="outline" size="sm" onClick={fetchData} disabled={loading}>
+            <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            Refresh Data
+          </Button>
+        </div>
+      </header>
+
+      <main className="flex-1 p-6">
+        {error && (
+          <Alert variant="destructive" className="mb-6">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Connection Error</AlertTitle>
+            <AlertDescription>
+              {error}
+              <br />
+              <span className="text-sm mt-2 block">
+                Run the Java backend with:{" "}
+                <code className="bg-muted px-1 rounded">cd backend && mvn compile exec:java</code>
+              </span>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {warehouse && (
+          <div className="mb-6 p-4 bg-card rounded-lg border">
+            <h3 className="font-semibold mb-2">Warehouse: {warehouse.name}</h3>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-muted-foreground">
+                Capacity: {warehouse.usedCapacity} / {warehouse.totalCapacity}
+              </span>
+              <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden max-w-xs">
+                <div
+                  className="h-full bg-primary transition-all"
+                  style={{
+                    width: `${(warehouse.usedCapacity / warehouse.totalCapacity) * 100}%`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="inventory">Inventory</TabsTrigger>
+            <TabsTrigger value="requisitions">Requisitions</TabsTrigger>
+            <TabsTrigger value="orders">Orders</TabsTrigger>
+            <TabsTrigger value="pick-lists">Pick Lists</TabsTrigger>
+            <TabsTrigger value="operations">Operations</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="inventory" className="space-y-6">
+            <InventoryList items={transformedInventory} />
+          </TabsContent>
+
+          <TabsContent value="requisitions" className="space-y-6">
+            <RequisitionsList items={transformedRequisitions as any} onStatusChange={handleStatusChange} />
+          </TabsContent>
+
+          <TabsContent value="orders" className="space-y-6">
+            <OrdersList />
+          </TabsContent>
+
+          <TabsContent value="pick-lists" className="space-y-6">
+            <PickListsDisplay items={pickLists as any} />
+          </TabsContent>
+
+          <TabsContent value="operations" className="space-y-6">
+            <WarehouseOperations onRefresh={fetchData} />
+          </TabsContent>
+        </Tabs>
+      </main>
+    </div>
+  )
+}
+
+--- app/api/warehouses/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const db = getDatabase()
+
+    const warehouses = db
+      .prepare(`
+      SELECT * FROM warehouses ORDER BY name
+    `)
+      .all()
+
+    return NextResponse.json(warehouses)
+  } catch (error) {
+    console.error("[v0] Warehouses API error:", error)
+    return NextResponse.json({ error: "Failed to fetch warehouses" }, { status: 500 })
+  }
+}
+
+--- app/api/orders/route.ts ---
+import { type NextRequest, NextResponse } from "next/server"
+import { getDatabase, initializeDatabase } from "@/lib/db"
+
+export async function GET() {
+  try {
+    initializeDatabase()
+    const db = getDatabase()
+
+    const orders = db
+      .prepare(`
+      SELECT * FROM orders ORDER BY ordered_date DESC
+    `)
+      .all()
+
+    return NextResponse.json(orders)
+  } catch (error) {
+    console.error("Failed to fetch orders:", error)
+    return NextResponse.json({ error: "Failed to fetch orders" }, { status: 500 })
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const { item_id, item_name, quantity, unit_cost } = await request.json()
+
+    if (!item_id || !quantity || quantity <= 0) {
+      return NextResponse.json({ error: "Invalid order data" }, { status: 400 })
+    }
+
+    initializeDatabase()
+    const db = getDatabase()
+
+    const orderId = `ORD-BUY-${Date.now()}`
+    const totalCost = unit_cost * quantity
+    const now = new Date()
+    const deliveryDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+    const stmt = db.prepare(`
+      INSERT INTO orders (id, item_id, item_name, quantity, unit_cost, total_cost, status, ordered_date, delivery_date)
+      VALUES (?, ?, ?, ?, ?, ?, 'ORDERED', ?, ?)
+    `)
+
+    stmt.run(orderId, item_id, item_name, quantity, unit_cost, totalCost, now.toISOString(), deliveryDate.toISOString())
+
+    const updateInventory = db.prepare(`
+      UPDATE inventory_records
+      SET quantity_on_hand = quantity_on_hand + ?
+      WHERE item_id = ?
+    `)
+    updateInventory.run(quantity, item_id)
+
+    const newOrder = db
+      .prepare(`
+      SELECT * FROM orders WHERE id = ?
+    `)
+      .get(orderId)
+
+    return NextResponse.json(newOrder, { status: 201 })
+  } catch (error) {
+    console.error("Failed to create order:", error)
+    return NextResponse.json({ error: "Failed to create order" }, { status: 500 })
+  }
+}
+
+--- app/api/orders/[id]/route.ts ---
+import { type NextRequest, NextResponse } from "next/server"
+import { getDatabase, initializeDatabase } from "@/lib/db"
+
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params
+    const { status } = await request.json()
+
+    if (!status) {
+      return NextResponse.json({ error: "Status is required" }, { status: 400 })
+    }
+
+    initializeDatabase()
+    const db = getDatabase()
+
+    const stmt = db.prepare(`
+      UPDATE orders
+      SET status = ?
+      WHERE id = ?
+    `)
+
+    stmt.run(status, id)
+
+    const updatedOrder = db
+      .prepare(`
+      SELECT * FROM orders WHERE id = ?
+    `)
+      .get(id)
+
+    return NextResponse.json(updatedOrder)
+  } catch (error) {
+    console.error("Failed to update order:", error)
+    return NextResponse.json({ error: "Failed to update order" }, { status: 500 })
+  }
+}
+
+--- app/api/items/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const db = getDatabase()
+
+    const items = db
+      .prepare(`
+      SELECT * FROM items ORDER BY name
+    `)
+      .all()
+
+    return NextResponse.json(items)
+  } catch (error) {
+    console.error("[v0] Items API error:", error)
+    return NextResponse.json({ error: "Failed to fetch items" }, { status: 500 })
+  }
+}
+
+--- app/api/pick-lists/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const db = getDatabase()
+
+    const pickLists = db
+      .prepare(`
+      SELECT * FROM pick_lists ORDER BY created_at DESC
+    `)
+      .all()
+
+    return NextResponse.json(pickLists)
+  } catch (error) {
+    console.error("[v0] Pick lists API error:", error)
+    return NextResponse.json({ error: "Failed to fetch pick lists" }, { status: 500 })
+  }
+}
+
+--- app/api/pick-lists/[id]/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const db = getDatabase()
+    const { id } = await Promise.resolve(params)
+
+    const pickList = db
+      .prepare(`
+      SELECT * FROM pick_lists WHERE id = ?
+    `)
+      .get(id)
+
+    if (!pickList) {
+      return NextResponse.json({ error: "Pick list not found" }, { status: 404 })
+    }
+
+    const items = db
+      .prepare(`
+      SELECT 
+        pli.id,
+        pli.item_id,
+        i.name as item_name,
+        i.sku,
+        pli.quantity_required,
+        pli.quantity_picked
+      FROM pick_list_items pli
+      JOIN items i ON pli.item_id = i.id
+      WHERE pli.pick_list_id = ?
+    `)
+      .all(id)
+
+    return NextResponse.json({ ...pickList, items })
+  } catch (error) {
+    console.error("[v0] Get pick list error:", error)
+    return NextResponse.json({ error: "Failed to fetch pick list details" }, { status: 500 })
+  }
+}
+
+--- app/api/purchase-orders/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const db = getDatabase()
+
+    const orders = db
+      .prepare(`
+      SELECT 
+        po.id,
+        po.requisition_id,
+        po.supplier_id,
+        po.supplier_name,
+        po.total_amount,
+        po.order_date,
+        po.status,
+        pr.item_name,
+        pr.quantity
+      FROM purchase_orders po
+      JOIN purchase_requisitions pr ON po.requisition_id = pr.id
+      ORDER BY po.order_date DESC
+    `)
+      .all()
+
+    return NextResponse.json(orders)
+  } catch (error) {
+    console.error("[v0] Purchase orders API error:", error)
+    return NextResponse.json({ error: "Failed to fetch purchase orders" }, { status: 500 })
+  }
+}
+
+--- app/api/packages/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const db = getDatabase()
+
+    const packages = db
+      .prepare(`
+      SELECT * FROM packages ORDER BY created_at DESC
+    `)
+      .all()
+
+    return NextResponse.json(packages)
+  } catch (error) {
+    console.error("[v0] Packages API error:", error)
+    return NextResponse.json({ error: "Failed to fetch packages" }, { status: 500 })
+  }
+}
+
+--- app/api/packages/[id]/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const db = getDatabase()
+    const { id } = await Promise.resolve(params)
+
+    const pkg = db
+      .prepare(`
+      SELECT * FROM packages WHERE id = ?
+    `)
+      .get(id)
+
+    if (!pkg) {
+      return NextResponse.json({ error: "Package not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(pkg)
+  } catch (error) {
+    console.error("[v0] Get package error:", error)
+    return NextResponse.json({ error: "Failed to fetch package details" }, { status: 500 })
+  }
+}
+
+--- app/api/requisitions/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    const db = getDatabase()
+
+    const requisitions = db
+      .prepare(`
+      SELECT * FROM purchase_requisitions ORDER BY created_at DESC
+    `)
+      .all()
+
+    return NextResponse.json(requisitions)
+  } catch (error) {
+    console.error("[v0] Requisitions API error:", error)
+    return NextResponse.json({ error: "Failed to fetch requisitions" }, { status: 500 })
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const db = getDatabase()
+    const body = await request.json()
+    const { itemId, quantity, justification, createdBy } = body
+
+    const item = db.prepare("SELECT name FROM items WHERE id = ?").get(itemId) as { name: string } | undefined
+    if (!item) {
+      return NextResponse.json({ error: "Item not found" }, { status: 404 })
+    }
+
+    const id = `REQ-${Date.now()}`
+    db.prepare(`
+      INSERT INTO purchase_requisitions (id, item_id, item_name, quantity, justification, created_by)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(id, itemId, item.name, quantity, justification, createdBy)
+
+    return NextResponse.json({ id, message: "Requisition created" }, { status: 201 })
+  } catch (error) {
+    console.error("[v0] Create requisition error:", error)
+    return NextResponse.json({ error: "Failed to create requisition" }, { status: 500 })
+  }
+}
+
+--- app/api/requisitions/[id]/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const db = getDatabase()
+    const { id } = await Promise.resolve(params)
+
+    const requisition = db
+      .prepare(`
+      SELECT * FROM purchase_requisitions WHERE id = ?
+    `)
+      .get(id)
+
+    if (!requisition) {
+      return NextResponse.json({ error: "Requisition not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(requisition)
+  } catch (error) {
+    console.error("[v0] Get requisition error:", error)
+    return NextResponse.json({ error: "Failed to fetch requisition" }, { status: 500 })
+  }
+}
+
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const db = getDatabase()
+    const { id } = await Promise.resolve(params)
+    const body = await request.json()
+    const { status } = body
+
+    const result = db
+      .prepare(`
+      UPDATE purchase_requisitions SET status = ? WHERE id = ?
+    `)
+      .run(status, id)
+
+    if ((result.changes || 0) === 0) {
+      return NextResponse.json({ error: "Requisition not found" }, { status: 404 })
+    }
+
+    return NextResponse.json({ message: "Requisition updated" })
+  } catch (error) {
+    console.error("[v0] Update requisition error:", error)
+    return NextResponse.json({ error: "Failed to update requisition" }, { status: 500 })
+  }
+}
+
+--- app/api/inventory/route.ts ---
+import { getDatabase, initializeDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  try {
+    initializeDatabase()
+    const db = getDatabase()
+
+    const records = db
+      .prepare(`
+      SELECT 
+        ir.id,
+        ir.item_id,
+        i.name as item_name,
+        i.sku,
+        i.unit_cost,
+        i.reorder_point,
+        ir.warehouse_id,
+        ir.location_id,
+        ir.quantity_on_hand,
+        ir.last_updated
+      FROM inventory_records ir
+      JOIN items i ON ir.item_id = i.id
+      ORDER BY ir.id
+    `)
+      .all()
+
+    return NextResponse.json(records)
+  } catch (error) {
+    console.error("[v0] Inventory API error:", error)
+    return NextResponse.json({ error: "Failed to fetch inventory" }, { status: 500 })
+  }
+}
+
+--- app/api/inventory/[id]/route.ts ---
+import { getDatabase } from "@/lib/db"
+import { NextResponse } from "next/server"
+
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const db = getDatabase()
+    const { id } = await Promise.resolve(params)
+
+    const record = db
+      .prepare(`
+      SELECT 
+        ir.id,
+        ir.item_id,
+        i.name as item_name,
+        i.sku,
+        i.category,
+        i.unit_cost,
+        i.reorder_point,
+        i.reorder_quantity,
+        ir.warehouse_id,
+        w.name as warehouse_name,
+        w.address,
+        ir.location_id,
+        sl.capacity as location_capacity,
+        sl.used_space as location_used_space,
+        ir.quantity_on_hand,
+        ir.last_updated
+      FROM inventory_records ir
+      JOIN items i ON ir.item_id = i.id
+      JOIN warehouses w ON ir.warehouse_id = w.id
+      JOIN storage_locations sl ON ir.location_id = sl.id
+      WHERE ir.id = ?
+    `)
+      .get(id)
+
+    if (!record) {
+      return NextResponse.json({ error: "Inventory record not found" }, { status: 404 })
+    }
+
+    return NextResponse.json(record)
+  } catch (error) {
+    console.error("[v0] Get inventory detail error:", error)
+    return NextResponse.json({ error: "Failed to fetch inventory details" }, { status: 500 })
+  }
+}
+
+--- app/layout.tsx ---
+import type React from "react"
+import type { Metadata } from "next"
+import { Geist, Geist_Mono } from "next/font/google"
+import "./globals.css"
+
+const _geist = Geist({ subsets: ["latin"] })
+const _geistMono = Geist_Mono({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  title: "Warehouse Management System",
+  description: "Real-time inventory tracking and order management",
+  generator: "v0.app",
+  icons: {
+    icon: [
+      {
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/apple-icon.png",
+  },
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={`font-sans antialiased`}>{children}</body>
+    </html>
+  )
+}
+
+--- lib/java-api.ts ---
+/**
+ * Java Backend API Client
+ * This client communicates with the Java SparkJava server running on port 4567
+ */
+
+const JAVA_API_BASE_URL = process.env.NEXT_PUBLIC_JAVA_API_URL || "http://localhost:4567"
+
+interface ApiResponse<T> {
+  data?: T
+  error?: string
+}
+
+async function fetchFromJavaBackend<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
+  try {
+    const url = `${JAVA_API_BASE_URL}${endpoint}`
+    console.log(`[v0] Fetching from Java backend: ${url}`)
+
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        ...options.headers,
+      },
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      console.error(`[v0] Java API error:`, data)
+      return { error: data.error || "Request failed" }
+    }
+
+    console.log(`[v0] Java API response:`, data)
+    return { data }
+  } catch (error) {
+    console.error(`[v0] Failed to connect to Java backend:`, error)
+    return { error: "Failed to connect to Java backend. Is the server running on port 4567?" }
+  }
+}
+
+// ============================================================================
+// INVENTORY APIs
+// ============================================================================
+
+export interface InventoryRecord {
+  recordId: string
+  itemId: string
+  quantityOnHand: number
+  warehouseId?: string
+  locationId?: string
+  lastUpdated?: string
+}
+
+export interface StockMonitorResult {
+  itemsChecked: number
+  lowStockItems: string[]
+  reorderTriggered: boolean
+}
+
+export async function getStockLevels(itemId: string): Promise<ApiResponse<InventoryRecord>> {
+  return fetchFromJavaBackend<InventoryRecord>(`/api/inventory/stock-levels/${itemId}`)
+}
+
+export async function runStockMonitoring(): Promise<ApiResponse<StockMonitorResult>> {
+  return fetchFromJavaBackend<StockMonitorResult>("/api/inventory/stock-monitor/run", {
+    method: "POST",
+  })
+}
+
+export async function adjustInventory(sku: string, adjustment: number): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>("/api/inventory/stock-levels/adjust", {
+    method: "PUT",
+    body: JSON.stringify({ sku, adjustment }),
+  })
+}
+
+// ============================================================================
+// PROCUREMENT APIs
+// ============================================================================
+
+export interface PurchaseRequisition {
+  requisitionId: string
+  itemId: string
+  itemName?: string
+  quantity: number
+  status: "PENDING" | "APPROVED" | "REJECTED"
+  createdBy?: string
+  justification?: string
+  createdAt?: string
+}
+
+export interface PurchaseOrder {
+  purchaseOrderId: string
+  requisitionId: string
+  supplierId: string
+  supplierName: string
+  orderItems: Array<{
+    itemId: string
+    itemName: string
+    quantity: number
+    unitPrice: number
+    lineTotal: number
+  }>
+  totalAmount: number
+  orderDate: string
+  status: string
+}
+
+export async function getPendingRequisitions(): Promise<ApiResponse<PurchaseRequisition[]>> {
+  return fetchFromJavaBackend<PurchaseRequisition[]>("/api/procurement/requisitions/pending")
+}
+
+export async function approveRequisition(requisitionId: string): Promise<ApiResponse<PurchaseRequisition>> {
+  return fetchFromJavaBackend<PurchaseRequisition>(`/api/procurement/requisitions/${requisitionId}/approve`, {
+    method: "PUT",
+  })
+}
+
+export async function rejectRequisition(requisitionId: string): Promise<ApiResponse<PurchaseRequisition>> {
+  return fetchFromJavaBackend<PurchaseRequisition>(`/api/procurement/requisitions/${requisitionId}/reject`, {
+    method: "PUT",
+  })
+}
+
+export async function createPurchaseOrder(): Promise<ApiResponse<PurchaseOrder>> {
+  return fetchFromJavaBackend<PurchaseOrder>("/api/procurement/purchase-orders", {
+    method: "POST",
+  })
+}
+
+export async function getPurchaseOrder(orderId: string): Promise<ApiResponse<PurchaseOrder>> {
+  return fetchFromJavaBackend<PurchaseOrder>(`/api/procurement/purchase-orders/${orderId}`)
+}
+
+export async function createReorderRequest(): Promise<ApiResponse<PurchaseRequisition>> {
+  return fetchFromJavaBackend<PurchaseRequisition>("/api/procurement/reorder", {
+    method: "POST",
+  })
+}
+
+// ============================================================================
+// WAREHOUSE APIs
+// ============================================================================
+
+export interface Warehouse {
+  warehouseId: string
+  name: string
+  address: string
+  totalCapacity: number
+  usedCapacity: number
+}
+
+export interface PickList {
+  pickListId: string
+  orderId: string
+  status: "PENDING" | "ASSIGNED" | "IN_PROGRESS" | "COMPLETED"
+  assignedPicker?: string
+  items: Array<{
+    itemId: string
+    itemName?: string
+    quantityRequired: number
+    quantityPicked: number
+    location: string
+  }>
+  createdAt?: string
+}
+
+export interface Picker {
+  pickerId: string
+  name?: string
+  status: string
+}
+
+export interface Package {
+  packageId: string
+  orderId: string
+  pickListId: string
+  packageType: string
+  status: string
+  weight?: number
+  dimensions?: string
+}
+
+export async function getWarehouseCapacity(): Promise<ApiResponse<Warehouse>> {
+  return fetchFromJavaBackend<Warehouse>("/api/warehouse/capacity")
+}
+
+export async function storeItem(
+  itemId: string,
+  warehouseId: string,
+  quantity: number,
+): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>("/api/warehouse/storage/store-item", {
+    method: "POST",
+    body: JSON.stringify({ itemId, warehouseId, quantity }),
+  })
+}
+
+export async function createPickList(orderId: string): Promise<ApiResponse<PickList>> {
+  return fetchFromJavaBackend<PickList>(`/api/warehouse/picking/create-picklist/${orderId}`, {
+    method: "POST",
+  })
+}
+
+export async function assignPickList(pickListId: string, pickerId: string): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>(`/api/warehouse/picking/picklists/${pickListId}/assign/${pickerId}`, {
+    method: "PUT",
+  })
+}
+
+export async function recordPickedItem(
+  pickListId: string,
+  itemId: string,
+  quantity: number,
+): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>(
+    `/api/warehouse/picking/picklists/${pickListId}/items/${itemId}/${quantity}`,
+    { method: "PUT" },
+  )
+}
+
+export async function getAvailablePickers(): Promise<ApiResponse<Picker[]>> {
+  return fetchFromJavaBackend<Picker[]>("/api/warehouse/personnel/pickers")
+}
+
+export async function packOrder(pickListId: string): Promise<ApiResponse<Package>> {
+  return fetchFromJavaBackend<Package>(`/api/warehouse/packing/pack-order/${pickListId}`, {
+    method: "POST",
+  })
+}
+
+export async function getPackageDetails(packageId: string): Promise<ApiResponse<Package>> {
+  return fetchFromJavaBackend<Package>(`/api/warehouse/packing/packages/${packageId}`)
+}
+
+// ============================================================================
+// SHIPPING APIs
+// ============================================================================
+
+export interface ShippingLabel {
+  labelId: string
+  packageId: string
+  carrierId: string
+  trackingNumber: string
+  serviceLevel: string
+  fromAddress: any
+  toAddress: any
+  createdAt: string
+}
+
+export interface DispatchManifest {
+  manifestId: string
+  carrierId: string
+  packages: Package[]
+  status: string
+  createdAt: string
+}
+
+export interface ShipmentRecord {
+  trackingId: string
+  origin: string
+  destination: string
+  status: string
+  estimatedDelivery?: string
+}
+
+export async function generateShippingLabel(
+  packageId: string,
+  carrierId: string,
+  serviceLevel: string,
+): Promise<ApiResponse<ShippingLabel>> {
+  return fetchFromJavaBackend<ShippingLabel>(
+    `/api/shipping/labels/generate/${packageId}/${carrierId}/${serviceLevel}`,
+    { method: "POST" },
+  )
+}
+
+export async function getShippingLabel(labelId: string): Promise<ApiResponse<ShippingLabel>> {
+  return fetchFromJavaBackend<ShippingLabel>(`/api/shipping/labels/${labelId}`)
+}
+
+export async function createDispatchManifest(carrierId: string): Promise<ApiResponse<DispatchManifest>> {
+  return fetchFromJavaBackend<DispatchManifest>(`/api/shipping/dispatch/create-manifest/${carrierId}`, {
+    method: "POST",
+  })
+}
+
+export async function recordCourierHandover(manifestId: string): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>(`/api/shipping/dispatch/manifests/${manifestId}/handover`, {
+    method: "PUT",
+  })
+}
+
+export async function trackShipment(trackingId: string): Promise<ApiResponse<ShipmentRecord>> {
+  return fetchFromJavaBackend<ShipmentRecord>(`/api/shipping/tracking/${trackingId}`)
+}
+
+// ============================================================================
+// RETURNS APIs
+// ============================================================================
+
+export interface ReturnRequest {
+  returnId: string
+  customerId: string
+  sku: string
+  reason: string
+  status: string
+  createdAt: string
+}
+
+export async function initiateReturn(): Promise<ApiResponse<ReturnRequest>> {
+  return fetchFromJavaBackend<ReturnRequest>("/api/returns/initiate", {
+    method: "POST",
+  })
+}
+
+export async function approveReturn(returnId: string): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>(`/api/returns/requests/${returnId}/approve`, { method: "PUT" })
+}
+
+export async function processReceivedReturn(returnId: string): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>(`/api/returns/process-received/${returnId}`, { method: "POST" })
+}
+
+// ============================================================================
+// RECEIVING APIs
+// ============================================================================
+
+export interface ShipmentReceiveResult {
+  status: string
+  shipmentId: number
+}
+
+export interface InspectionResult {
+  grnId?: string
+  batch?: {
+    sku: string
+    batchId: string
+    quantity: number
+  }
+  status?: string
+  outcome?: string
+}
+
+export async function receiveShipment(): Promise<ApiResponse<ShipmentReceiveResult>> {
+  return fetchFromJavaBackend<ShipmentReceiveResult>("/api/warehouse/shipments/receive", {
+    method: "POST",
+  })
+}
+
+export async function inspectGoods(): Promise<ApiResponse<InspectionResult>> {
+  return fetchFromJavaBackend<InspectionResult>("/api/warehouse/qc/inspect", {
+    method: "POST",
+  })
+}
+
+export async function updateInventoryFromReceipt(): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>("/api/inventory/records/update-from-receipt", {
+    method: "POST",
+  })
+}
+
+// ============================================================================
+// AUDIT APIs
+// ============================================================================
+
+export interface AuditRequest {
+  auditId: string
+  description: string
+  status: string
+  createdAt: string
+}
+
+export interface AuditReport {
+  auditId: string
+  findings: any[]
+  generatedAt: string
+}
+
+export async function initiateAudit(): Promise<ApiResponse<AuditRequest>> {
+  return fetchFromJavaBackend<AuditRequest>("/api/inventory/audits/initiate", {
+    method: "POST",
+  })
+}
+
+export async function submitAuditData(auditId: string): Promise<ApiResponse<{ status: string }>> {
+  return fetchFromJavaBackend<{ status: string }>(`/api/inventory/audits/${auditId}/data`, { method: "POST" })
+}
+
+export async function getAuditReport(auditId: string): Promise<ApiResponse<AuditReport>> {
+  return fetchFromJavaBackend<AuditReport>(`/api/inventory/audits/${auditId}/report`)
+}
+
+--- lib/api.ts ---
+import type { PurchaseRequisition, PurchaseOrder, InventoryRecord, PickList } from "@/types/warehouse"
+
+// Mock data for preview mode
+const MOCK_REQUISITIONS: PurchaseRequisition[] = [
+  {
+    requisitionId: "PR-1715623400000",
+    itemId: "ITEM-001",
+    itemName: "Laptop",
+    createdBy: "System",
+    justification: "Low stock",
+    status: "PENDING",
+  },
+  {
+    requisitionId: "PR-1715623405000",
+    itemId: "ITEM-002",
+    itemName: "Mouse",
+    createdBy: "System",
+    justification: "Reorder point reached",
+    status: "APPROVED",
+  },
+]
+
+const MOCK_INVENTORY: InventoryRecord[] = [
+  {
+    recordId: "IR-001",
+    itemId: "ITEM-001",
+    warehouseId: "WH-1",
+    locationId: "A1-01",
+    quantityOnHand: 30,
+    lastUpdated: new Date().toISOString(),
+  },
+  {
+    recordId: "IR-002",
+    itemId: "ITEM-002",
+    warehouseId: "WH-1",
+    locationId: "A1-02",
+    quantityOnHand: 8,
+    lastUpdated: new Date().toISOString(),
+  },
+]
+
+const MOCK_PICKLISTS: PickList[] = [
+  { pickListId: "PL-1001", orderId: "ORD-1001", status: "PENDING" },
+  { pickListId: "PL-1002", orderId: "ORD-1002", status: "ASSIGNED" },
+]
+
+// API Client
+export const api = {
+  procurement: {
+    getPendingRequisitions: async (): Promise<PurchaseRequisition[]> => {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      return MOCK_REQUISITIONS
+    },
+    createPurchaseOrder: async (reqId: string): Promise<PurchaseOrder> => {
+      await new Promise((resolve) => setTimeout(resolve, 800))
+      return {
+        purchaseOrderId: `PO-${Date.now()}`,
+        requisitionId: reqId,
+        supplierId: "SUP-01",
+        supplierName: "TechDistro",
+        orderItems: [
+          {
+            itemId: "ITEM-001",
+            itemName: "Laptop",
+            quantity: 50,
+            unitPrice: 1200,
+            lineTotal: 60000,
+          },
+        ],
+        totalAmount: 60000,
+        orderDate: new Date().toISOString(),
+        status: "CREATED",
+      }
+    },
+  },
+  inventory: {
+    getStockLevels: async (): Promise<InventoryRecord[]> => {
+      await new Promise((resolve) => setTimeout(resolve, 600))
+      return MOCK_INVENTORY
+    },
+    runStockMonitor: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      return { status: "Stock monitor run successfully" }
+    },
+  },
+  warehouse: {
+    getPickLists: async (): Promise<PickList[]> => {
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      return MOCK_PICKLISTS
+    },
+  },
+}
+
+--- lib/utils.ts ---
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+--- lib/db.ts ---
+import Database from "better-sqlite3"
+import path from "path"
+
+let db: Database.Database | null = null
+
+export function getDatabase() {
+  if (!db) {
+    const dbPath = path.join(process.cwd(), "warehouse.db")
+    db = new Database(dbPath)
+    db.pragma("journal_mode = WAL")
+  }
+  return db
+}
+
+export function initializeDatabase() {
+  const database = getDatabase()
+  const initSql = `
+    -- Items table
+    CREATE TABLE IF NOT EXISTS items (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      category TEXT NOT NULL,
+      sku TEXT UNIQUE NOT NULL,
+      unit_cost DECIMAL(10, 2),
+      reorder_point INTEGER,
+      reorder_quantity INTEGER,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Warehouses table
+    CREATE TABLE IF NOT EXISTS warehouses (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      address TEXT NOT NULL,
+      total_capacity INTEGER,
+      used_capacity INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Storage locations table
+    CREATE TABLE IF NOT EXISTS storage_locations (
+      id TEXT PRIMARY KEY,
+      warehouse_id TEXT NOT NULL,
+      capacity INTEGER,
+      used_space INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (warehouse_id) REFERENCES warehouses(id)
+    );
+
+    -- Inventory records table
+    CREATE TABLE IF NOT EXISTS inventory_records (
+      id TEXT PRIMARY KEY,
+      item_id TEXT NOT NULL,
+      warehouse_id TEXT NOT NULL,
+      location_id TEXT NOT NULL,
+      quantity_on_hand INTEGER,
+      last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (item_id) REFERENCES items(id),
+      FOREIGN KEY (warehouse_id) REFERENCES warehouses(id),
+      FOREIGN KEY (location_id) REFERENCES storage_locations(id)
+    );
+
+    -- Purchase requisitions table
+    CREATE TABLE IF NOT EXISTS purchase_requisitions (
+      id TEXT PRIMARY KEY,
+      item_id TEXT NOT NULL,
+      item_name TEXT NOT NULL,
+      quantity INTEGER NOT NULL,
+      status TEXT DEFAULT 'PENDING',
+      created_by TEXT,
+      justification TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (item_id) REFERENCES items(id)
+    );
+
+    -- Purchase orders table
+    CREATE TABLE IF NOT EXISTS purchase_orders (
+      id TEXT PRIMARY KEY,
+      requisition_id TEXT NOT NULL,
+      supplier_id TEXT,
+      supplier_name TEXT,
+      total_amount DECIMAL(12, 2),
+      order_date DATETIME,
+      status TEXT DEFAULT 'CREATED',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (requisition_id) REFERENCES purchase_requisitions(id)
+    );
+
+    -- Pick lists table
+    CREATE TABLE IF NOT EXISTS pick_lists (
+      id TEXT PRIMARY KEY,
+      order_id TEXT NOT NULL,
+      status TEXT DEFAULT 'PENDING',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Pick list items table
+    CREATE TABLE IF NOT EXISTS pick_list_items (
+      id TEXT PRIMARY KEY,
+      pick_list_id TEXT NOT NULL,
+      item_id TEXT NOT NULL,
+      quantity_required INTEGER,
+      quantity_picked INTEGER DEFAULT 0,
+      FOREIGN KEY (pick_list_id) REFERENCES pick_lists(id),
+      FOREIGN KEY (item_id) REFERENCES items(id)
+    );
+
+    -- Packages table
+    CREATE TABLE IF NOT EXISTS packages (
+      id TEXT PRIMARY KEY,
+      order_id TEXT NOT NULL,
+      pick_list_id TEXT NOT NULL,
+      package_type TEXT,
+      status TEXT DEFAULT 'PACKING',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Orders table
+    CREATE TABLE IF NOT EXISTS orders (
+      id TEXT PRIMARY KEY,
+      item_id TEXT NOT NULL,
+      item_name TEXT NOT NULL,
+      quantity INTEGER NOT NULL,
+      unit_cost DECIMAL(10, 2),
+      total_cost DECIMAL(12, 2),
+      status TEXT DEFAULT 'ORDERED',
+      ordered_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+      delivery_date DATETIME,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (item_id) REFERENCES items(id)
+    );
+  `
+
+  // Split and execute each statement
+  const statements = initSql.split(";").filter((s) => s.trim())
+  for (const stmt of statements) {
+    if (stmt.trim()) {
+      database.exec(stmt)
+    }
+  }
+
+  // Seed dummy data
+  seedDummyData(database)
+}
+
+function seedDummyData(database: Database.Database) {
+  // Check if data already exists
+  const itemCount = database.prepare("SELECT COUNT(*) as count FROM items").get() as { count: number }
+  if (itemCount.count > 0) return
+
+  // Insert items
+  const insertItem = database.prepare(`
+    INSERT INTO items (id, name, category, sku, unit_cost, reorder_point, reorder_quantity)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `)
+
+  const items = [
+    ["ITEM-001", "Laptops", "Electronics", "SKU-LAPTOP-001", 1200.0, 5, 10],
+    ["ITEM-002", "Desktop Monitors", "Electronics", "SKU-MONITOR-001", 350.0, 10, 20],
+    ["ITEM-003", "Keyboards", "Accessories", "SKU-KEYBOARD-001", 85.0, 20, 50],
+    ["ITEM-004", "Mice", "Accessories", "SKU-MOUSE-001", 45.0, 30, 100],
+    ["ITEM-005", "USB Cables", "Accessories", "SKU-USB-CABLE-001", 12.0, 50, 200],
+    ["ITEM-006", "Headphones", "Audio", "SKU-HEADPHONE-001", 120.0, 8, 15],
+    ["ITEM-007", "Webcams", "Electronics", "SKU-WEBCAM-001", 95.0, 5, 12],
+    ["ITEM-008", "External Hard Drives", "Storage", "SKU-HDD-EXTERNAL-001", 150.0, 10, 25],
+    ["ITEM-009", "SSD Storage", "Storage", "SKU-SSD-001", 180.0, 8, 20],
+    ["ITEM-010", "Power Banks", "Accessories", "SKU-POWERBANK-001", 65.0, 15, 40],
+  ]
+
+  items.forEach((item) => insertItem.run(...item))
+
+  // Insert warehouses
+  const insertWarehouse = database.prepare(`
+    INSERT INTO warehouses (id, name, address, total_capacity, used_capacity)
+    VALUES (?, ?, ?, ?, ?)
+  `)
+
+  insertWarehouse.run("WH-1", "Main Warehouse", "123 Main St, Anytown, USA", 10000, 4500)
+  insertWarehouse.run("WH-2", "Secondary Warehouse", "456 Oak Ave, Somewhere, USA", 8000, 3200)
+
+  // Insert storage locations
+  const insertLocation = database.prepare(`
+    INSERT INTO storage_locations (id, warehouse_id, capacity, used_space)
+    VALUES (?, ?, ?, ?)
+  `)
+
+  const locations = [
+    ["LOC-WH1-001", "WH-1", 500, 350],
+    ["LOC-WH1-002", "WH-1", 500, 280],
+    ["LOC-WH1-003", "WH-1", 500, 400],
+    ["LOC-WH2-001", "WH-2", 400, 200],
+    ["LOC-WH2-002", "WH-2", 400, 300],
+  ]
+
+  locations.forEach((loc) => insertLocation.run(...loc))
+
+  // Insert inventory records
+  const insertInventory = database.prepare(`
+    INSERT INTO inventory_records (id, item_id, warehouse_id, location_id, quantity_on_hand)
+    VALUES (?, ?, ?, ?, ?)
+  `)
+
+  const inventory = [
+    ["INV-001", "ITEM-001", "WH-1", "LOC-WH1-001", 25],
+    ["INV-002", "ITEM-002", "WH-1", "LOC-WH1-002", 45],
+    ["INV-003", "ITEM-003", "WH-1", "LOC-WH1-003", 8],
+    ["INV-004", "ITEM-004", "WH-2", "LOC-WH2-001", 12],
+    ["INV-005", "ITEM-005", "WH-2", "LOC-WH2-002", 150],
+    ["INV-006", "ITEM-006", "WH-1", "LOC-WH1-001", 5],
+    ["INV-007", "ITEM-007", "WH-2", "LOC-WH2-001", 18],
+    ["INV-008", "ITEM-008", "WH-1", "LOC-WH1-002", 22],
+    ["INV-009", "ITEM-009", "WH-2", "LOC-WH2-002", 9],
+    ["INV-010", "ITEM-010", "WH-1", "LOC-WH1-003", 32],
+  ]
+
+  inventory.forEach((inv) => insertInventory.run(...inv))
+
+  // Insert purchase requisitions
+  const insertRequisition = database.prepare(`
+    INSERT INTO purchase_requisitions (id, item_id, item_name, quantity, status, created_by, justification)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `)
+
+  insertRequisition.run("REQ-001", "ITEM-001", "Laptops", 5, "PENDING", "SYSTEM", "Stock level below reorder point")
+  insertRequisition.run("REQ-002", "ITEM-003", "Keyboards", 8, "PENDING", "WAREHOUSE_MANAGER", "Inventory restocking")
+  insertRequisition.run("REQ-003", "ITEM-006", "Headphones", 3, "APPROVED", "PROCUREMENT", "Approved for purchase")
+  insertRequisition.run("REQ-004", "ITEM-004", "Mice", 12, "REJECTED", "WAREHOUSE_MANAGER", "Cancelled order")
+
+  // Insert purchase orders
+  const insertPO = database.prepare(`
+    INSERT INTO purchase_orders (id, requisition_id, supplier_id, supplier_name, total_amount, order_date, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `)
+
+  insertPO.run("PO-001", "REQ-003", "SUP-001", "TechSupply Co", 360.0, new Date().toISOString(), "CREATED")
+  insertPO.run("PO-002", "REQ-001", "SUP-002", "ElectroWorld", 6000.0, new Date().toISOString(), "CREATED")
+
+  // Insert pick lists
+  const insertPickList = database.prepare(`
+    INSERT INTO pick_lists (id, order_id, status)
+    VALUES (?, ?, ?)
+  `)
+
+  insertPickList.run("PL-001", "ORD-001", "PENDING")
+  insertPickList.run("PL-002", "ORD-002", "ASSIGNED")
+  insertPickList.run("PL-003", "ORD-003", "COMPLETED")
+
+  // Insert pick list items
+  const insertPickListItem = database.prepare(`
+    INSERT INTO pick_list_items (id, pick_list_id, item_id, quantity_required, quantity_picked)
+    VALUES (?, ?, ?, ?, ?)
+  `)
+
+  insertPickListItem.run("PLI-001", "PL-001", "ITEM-001", 3, 0)
+  insertPickListItem.run("PLI-002", "PL-001", "ITEM-003", 5, 0)
+  insertPickListItem.run("PLI-003", "PL-002", "ITEM-002", 2, 2)
+  insertPickListItem.run("PLI-004", "PL-002", "ITEM-005", 10, 8)
+  insertPickListItem.run("PLI-005", "PL-003", "ITEM-006", 1, 1)
+  insertPickListItem.run("PLI-006", "PL-003", "ITEM-008", 3, 3)
+
+  // Insert packages
+  const insertPackage = database.prepare(`
+    INSERT INTO packages (id, order_id, pick_list_id, package_type, status)
+    VALUES (?, ?, ?, ?, ?)
+  `)
+
+  insertPackage.run("PKG-001", "ORD-001", "PL-001", "BOX", "PACKING")
+  insertPackage.run("PKG-002", "ORD-002", "PL-002", "BOX", "LABELED")
+  insertPackage.run("PKG-003", "ORD-003", "PL-003", "CRATE", "VERIFIED")
+
+  // Insert sample orders
+  const insertOrder = database.prepare(`
+    INSERT INTO orders (id, item_id, item_name, quantity, unit_cost, total_cost, status, ordered_date, delivery_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `)
+
+  const now = new Date()
+  const deliveryDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+  insertOrder.run(
+    "ORD-BUY-001",
+    "ITEM-001",
+    "Laptops",
+    10,
+    1200.0,
+    12000.0,
+    "DELIVERED",
+    now.toISOString(),
+    deliveryDate.toISOString(),
+  )
+  insertOrder.run(
+    "ORD-BUY-002",
+    "ITEM-005",
+    "USB Cables",
+    100,
+    12.0,
+    1200.0,
+    "IN_TRANSIT",
+    now.toISOString(),
+    deliveryDate.toISOString(),
+  )
+}
+
+--- lib/api-client.ts ---
+import type {
+  PurchaseOrder,
+  PurchaseRequisition,
+  GoodsReceivedNote,
+  InventoryRecord,
+  PickList,
+  Package,
+  ShippingLabel,
+  DispatchManifest,
+  ShipmentRecord,
+  ReturnRequest,
+  AuditRequest,
+  AuditReport,
+  Warehouse,
+  ErrorResponse,
+  StatusResponse,
+} from "../types/schema"
+
+const BASE_URL = "/api" // Adjust if running on a different host
+
+async function fetchJson<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
+  })
+
+  const data = await response.json()
+
+  if (!response.ok) {
+    throw new Error((data as ErrorResponse).error || `API Error: ${response.statusText}`)
+  }
+
+  return data as T
+}
+
+export const WarehouseApi = {
+  procurement: {
+    // API 1
+    createPurchaseOrder: () => fetchJson<PurchaseOrder>("/procurement/purchase-orders", { method: "POST" }),
+
+    // API 2
+    approveRequisition: (id: string) =>
+      fetchJson<PurchaseRequisition>(`/procurement/requisitions/${id}/approve`, { method: "PUT" }),
+
+    // API 3
+    getPurchaseOrder: (id: string) => fetchJson<PurchaseOrder>(`/procurement/purchase-orders/${id}`),
+
+    // API 4
+    rejectRequisition: (id: string) =>
+      fetchJson<PurchaseRequisition>(`/procurement/requisitions/${id}/reject`, { method: "PUT" }),
+
+    // API 11
+    createReorder: () => fetchJson<PurchaseRequisition>("/procurement/reorder", { method: "POST" }),
+
+    // API 12
+    getPendingRequisitions: () => fetchJson<PurchaseRequisition[]>("/procurement/requisitions/pending"),
+  },
+
+  warehouse: {
+    // API 5
+    receiveShipment: () =>
+      fetchJson<StatusResponse & { shipmentId: number }>("/warehouse/shipments/receive", { method: "POST" }),
+
+    // API 6
+    inspectGoods: () =>
+      fetchJson<GoodsReceivedNote | (StatusResponse & { outcome: string })>("/warehouse/qc/inspect", {
+        method: "POST",
+      }),
+
+    // API 8
+    storeItem: () => fetchJson<StatusResponse>("/warehouse/storage/store-item", { method: "POST" }),
+
+    // API 30
+    getCapacity: () => fetchJson<Warehouse>("/warehouse/capacity"),
+
+    // API 31
+    getPickers: () => fetchJson<string[]>("/warehouse/personnel/pickers"),
+  },
+
+  inventory: {
+    // API 7
+    updateFromReceipt: () => fetchJson<StatusResponse>("/inventory/records/update-from-receipt", { method: "POST" }),
+
+    // API 9
+    getStockLevel: (itemId: string) => fetchJson<InventoryRecord>(`/inventory/stock-levels/${itemId}`),
+
+    // API 10
+    runStockMonitor: () => fetchJson<any[]>("/inventory/stock-monitor/run", { method: "POST" }), // Returns List<StockAlert>
+
+    // API 29
+    adjustStock: () => fetchJson<StatusResponse>("/inventory/stock-levels/adjust", { method: "PUT" }),
+
+    audits: {
+      // API 26
+      initiate: () => fetchJson<AuditRequest>("/inventory/audits/initiate", { method: "POST" }),
+
+      // API 27
+      submitData: (id: string) => fetchJson<StatusResponse>(`/inventory/audits/${id}/data`, { method: "POST" }),
+
+      // API 28
+      getReport: (id: string) => fetchJson<AuditReport>(`/inventory/audits/${id}/report`),
+    },
+  },
+
+  picking: {
+    // API 13
+    createPickList: (orderId: string) =>
+      fetchJson<PickList>(`/warehouse/picking/create-picklist/${orderId}`, { method: "POST" }),
+
+    // API 14
+    assignPicker: (id: string, pickerId: string) =>
+      fetchJson<StatusResponse>(`/warehouse/picking/picklists/${id}/assign/${pickerId}`, { method: "PUT" }),
+
+    // API 15
+    recordPick: (listId: string, itemId: string, quantity: number) =>
+      fetchJson<StatusResponse>(`/warehouse/picking/picklists/${listId}/items/${itemId}/${quantity}`, {
+        method: "PUT",
+      }),
+  },
+
+  packing: {
+    // API 16
+    packOrder: (pickListId: string) =>
+      fetchJson<Package>(`/warehouse/packing/pack-order/${pickListId}`, { method: "POST" }),
+
+    // API 17
+    getPackage: (id: string) => fetchJson<Package>(`/warehouse/packing/packages/${id}`),
+  },
+
+  shipping: {
+    // API 18
+    generateLabel: (packageId: string, carrierId: string, serviceLevel: string) =>
+      fetchJson<ShippingLabel>(`/shipping/labels/generate/${packageId}/${carrierId}/${serviceLevel}`, {
+        method: "POST",
+      }),
+
+    // API 19
+    getLabel: (id: string) => fetchJson<ShippingLabel>(`/shipping/labels/${id}`),
+
+    // API 20
+    createManifest: (carrierId: string) =>
+      fetchJson<DispatchManifest>(`/shipping/dispatch/create-manifest/${carrierId}`, { method: "POST" }),
+
+    // API 21
+    handoverManifest: (id: string) =>
+      fetchJson<StatusResponse>(`/shipping/dispatch/manifests/${id}/handover`, { method: "PUT" }),
+
+    // API 22
+    trackShipment: (trackingId: string) => fetchJson<ShipmentRecord>(`/shipping/tracking/${trackingId}`),
+  },
+
+  returns: {
+    // API 23
+    initiate: () => fetchJson<ReturnRequest>("/returns/initiate", { method: "POST" }),
+
+    // API 24
+    approve: (id: string) => fetchJson<StatusResponse>(`/returns/requests/${id}/approve`, { method: "PUT" }),
+
+    // API 25
+    processReceived: (returnId: string) =>
+      fetchJson<StatusResponse>(`/returns/process-received/${returnId}`, { method: "POST" }),
+  },
+}

@@ -1,0 +1,18 @@
+[00:00:01.134] Server  LOG      ✓ Ready in 770ms
+[00:00:06.952] Server  LOG      ○ Compiling / ...
+[00:00:08.937] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:00:09.040] Browser ERROR   [v0] Failed to connect to Java backend: {}
+[00:28:51.601] Server  LOG      ✓ Compiled in 657ms
+[00:29:37.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:29:37.331] Browser ERROR   [v0] Failed to connect to Java backend: {}
+[00:29:43.403] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:29:43.403] Browser ERROR   [v0] Failed to connect to Java backend: {}
+[00:34:29.188] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:34:29.455] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:34:29.455] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:34:29.455] Browser LOG     [v0] Java API response: []
+[00:34:29.455] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:34:29.455] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-11-30T22:45:07.190366097","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:34:29.455] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:34:29.455] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-11-30T22:45:07.190410848","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:34:29.455] Browser LOG     [v0] Data fetched from Java backend successfully

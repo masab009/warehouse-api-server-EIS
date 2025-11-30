@@ -21,6 +21,37 @@ public class WarehouseApiServer {
 
     public static void main(String[] args) {
         port(4567); // Set the server port
+        options("/*", (request, response) -> {
+            String acrh = request.headers("Access-Control-Request-Headers");
+            if (acrh != null) {
+                response.header("Access-Control-Allow-Headers", acrh);
+            } else {
+                response.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
+            }
+
+            String acrm = request.headers("Access-Control-Request-Method");
+            if (acrm != null) {
+                response.header("Access-Control-Allow-Methods", acrm);
+            } else {
+                response.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            }
+
+            // ❌ REMOVE these two lines (they cause duplicate Access-Control-Allow-Origin)
+            // response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+            // response.header("Access-Control-Allow-Credentials", "true");
+
+            return "OK";
+        });
+
+        // Add CORS headers to all actual responses
+        before((req, res) -> {
+            res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+            res.header("Access-Control-Allow-Credentials", "true");
+            res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+            res.header("Access-Control-Allow-Headers", "Content-Type,Authorization");
+        });
+
+
 
         // Gson with java.time adapters
         Gson gson = new GsonBuilder()
