@@ -1,18 +1,67 @@
-[00:00:01.134] Server  LOG      ✓ Ready in 770ms
-[00:00:06.952] Server  LOG      ○ Compiling / ...
-[00:00:08.937] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
-[00:00:09.040] Browser ERROR   [v0] Failed to connect to Java backend: {}
-[00:28:51.601] Server  LOG      ✓ Compiled in 657ms
-[00:29:37.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
-[00:29:37.331] Browser ERROR   [v0] Failed to connect to Java backend: {}
-[00:29:43.403] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
-[00:29:43.403] Browser ERROR   [v0] Failed to connect to Java backend: {}
-[00:34:29.188] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
-[00:34:29.455] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
-[00:34:29.455] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
-[00:34:29.455] Browser LOG     [v0] Java API response: []
-[00:34:29.455] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
-[00:34:29.455] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-11-30T22:45:07.190366097","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
-[00:34:29.455] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
-[00:34:29.455] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-11-30T22:45:07.190410848","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
-[00:34:29.455] Browser LOG     [v0] Data fetched from Java backend successfully
+[00:00:02.319] Server  LOG      ✓ Ready in 1519ms
+[00:00:36.780] Server  LOG      ○ Compiling / ...
+[00:00:58.197] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:58.445] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:00:58.685] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:00:58.685] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:00:58.685] Browser LOG     [v0] Java API response: []
+[00:00:58.685] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:00:58.685] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-12-01T08:56:04.787179126","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:00:58.685] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:00:58.685] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-12-01T08:56:04.787294604","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:00:58.685] Browser LOG     [v0] Data fetched from Java backend successfully
+[00:01:45.950] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-monitor/run
+[00:01:45.950] Browser LOG     [v0] Java API response: [{"alertId":"ALERT-1764561472160","currentQuantity":8,"itemId":"ITEM-002"}]
+[00:01:45.950] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:01:45.950] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:01:45.950] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:01:45.950] Browser LOG     [v0] Java API response: []
+[00:01:45.950] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:01:45.950] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-12-01T08:57:52.162137593","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:01:45.950] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:01:45.950] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-12-01T08:57:52.162082721","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:01:45.950] Browser LOG     [v0] Data fetched from Java backend successfully
+[00:01:54.010] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/reorder
+[00:01:54.010] Browser LOG     [v0] Java API response: {"createdBy":"API_CALL","itemId":"ITEM-002","itemName":"Mouse","justification":"Stock level (8) is below reorder point (10)","requisitionId":"PR-1764561480251","status":"PENDING"}
+[00:01:54.010] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:01:54.010] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:01:54.010] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:01:54.010] Browser LOG     [v0] Java API response: [{"createdBy":"API_CALL","itemId":"ITEM-002","itemName":"Mouse","justification":"Stock level (8) is below reorder point (10)","requisitionId":"PR-1764561480251","status":"PENDING"}]
+[00:01:54.010] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:01:54.010] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-12-01T08:57:52.162137593","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:01:54.010] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:01:54.010] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-12-01T08:57:52.162082721","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:01:54.010] Browser LOG     [v0] Data fetched from Java backend successfully
+[00:03:37.370] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/records/update-from-receipt
+[00:03:37.370] Browser LOG     [v0] Java API response: {"status":"Inventory updated successfully for GRN GRN-12345"}
+[00:03:37.370] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:03:37.370] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:03:37.370] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:03:37.370] Browser LOG     [v0] Java API response: [{"createdBy":"API_CALL","itemId":"ITEM-002","itemName":"Mouse","justification":"Stock level (8) is below reorder point (10)","requisitionId":"PR-1764561480251","status":"PENDING"}]
+[00:03:37.370] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:03:37.370] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-12-01T08:57:52.162137593","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:03:37.370] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:03:37.370] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-12-01T08:57:52.162082721","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:03:37.370] Browser LOG     [v0] Data fetched from Java backend successfully
+[00:03:44.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/qc/inspect
+[00:03:44.183] Browser LOG     [v0] Java API response: {"batch":{"batchId":"BATCH-944","quantity":100,"sku":"SKU-LAPTOP-001"},"date":"2025-12-01","grnId":"GRN-1764561590416"}
+[00:03:44.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:03:44.183] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:03:44.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:03:44.183] Browser LOG     [v0] Java API response: [{"createdBy":"API_CALL","itemId":"ITEM-002","itemName":"Mouse","justification":"Stock level (8) is below reorder point (10)","requisitionId":"PR-1764561480251","status":"PENDING"}]
+[00:03:44.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:03:44.183] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-12-01T08:57:52.162137593","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:03:44.183] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:03:44.183] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-12-01T08:57:52.162082721","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:03:44.183] Browser LOG     [v0] Data fetched from Java backend successfully
+[00:03:55.624] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/shipments/receive
+[00:03:55.624] Browser LOG     [v0] Java API response: {"shipmentId":349,"status":"Shipment received and checked"}
+[00:03:55.624] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/warehouse/capacity
+[00:03:55.624] Browser LOG     [v0] Java API response: {"address":"123 Supply Chain St","name":"Main Warehouse","storageLocations":{},"totalCapacity":10000,"usedCapacity":0,"warehouseId":"WH-1"}
+[00:03:55.624] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/procurement/requisitions/pending
+[00:03:55.798] Browser LOG     [v0] Java API response: [{"createdBy":"API_CALL","itemId":"ITEM-002","itemName":"Mouse","justification":"Stock level (8) is below reorder point (10)","requisitionId":"PR-1764561480251","status":"PENDING"}]
+[00:03:55.798] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-001
+[00:03:55.798] Browser LOG     [v0] Java API response: {"itemId":"ITEM-001","lastUpdated":"2025-12-01T08:57:52.162137593","locationId":"A1-01","quantityOnHand":30,"recordId":"IR-001","warehouseId":"WH-1"}
+[00:03:55.798] Browser LOG     [v0] Fetching from Java backend: http://localhost:4567/api/inventory/stock-levels/ITEM-002
+[00:03:55.798] Browser LOG     [v0] Java API response: {"itemId":"ITEM-002","lastUpdated":"2025-12-01T08:57:52.162082721","locationId":"A1-02","quantityOnHand":8,"recordId":"IR-002","warehouseId":"WH-1"}
+[00:03:55.798] Browser LOG     [v0] Data fetched from Java backend successfully
